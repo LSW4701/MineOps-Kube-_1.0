@@ -52,15 +52,6 @@ module "subnet_group" {
 
   tags = local.common_tags
 
-  public_subnet_tags = {               ## 22.10.06 test  
-    "kubernetes.io/cluster/${local.config.vpc.name}" = "shared"  # cluster_name 
-    "kubernetes.io/role/elb"                      = "1"
-  }
-
-  private_subnet_tags = {
-    "kubernetes.io/cluster/${local.config.vpc.name}" = "shared"
-    "kubernetes.io/role/internal-elb"             = "1"
-  }
 }
 
 
