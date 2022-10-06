@@ -6,7 +6,7 @@
 #: Description : : Hi
 
 echo "============================================"
-echo "create MineOps EKS create script  "
+echo " create MineOps EKS create script  "
 echo " module.cluster.aws_eks_cluster.this: Still creating... [10m50s elapsed] "
 echo " EKS 리소스 생성과정에서 10분 이상 시간 소모 "
 date +%Y-%m-%d
@@ -33,7 +33,7 @@ cd $DIR/eks-irsa
 echo $irsa_arn > arm_tmp
 sed -i "s/vpc/vpc\\\/1" ./arm_tmp   # vpc/ -> vpc\/  sed 인식을 위해 \치환  
 
-irsa_arn2 ="$(cat arm_tmp)" 
+irsa_arn2= "$(cat ./arm_tmp)" 
 sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 
 
@@ -54,7 +54,7 @@ sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 # sed -i "s/vpc/vpc\\\/1" ./vpc1   # 1회만 변경 
 
 
-# cc="$(cat ./vpc1)"  # 
+# cc="$(cat vpc1)"  # 
 
 # sed -i "s/input/$cc/1" ./rbac.yaml   # 복붙으로 들어간 arn이 또 복사되므로 g가 아닌 1 옵션 
 
