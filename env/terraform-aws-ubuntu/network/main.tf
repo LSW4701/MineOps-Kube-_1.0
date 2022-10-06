@@ -19,9 +19,9 @@ locals {
   # }
 }
 
-provider "aws" {
-  region = "ap-northeast-2"
-}
+# provider "aws" {
+#   region = "ap-northeast-2"
+# }
 
 locals {
   cluster_name = "apne2-mineops"
