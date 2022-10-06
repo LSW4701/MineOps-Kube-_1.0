@@ -9,7 +9,7 @@ spec:
   ports:
   - name: http
     protocol: TCP
-    port: 8080
-    targetPort: 80
+    port: 80
+    targetPort: 8080    # 타겟그룹 
   selector:
     app: mario
