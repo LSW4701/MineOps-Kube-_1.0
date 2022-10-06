@@ -26,7 +26,7 @@ aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias a
 # EKS연결을 위해선 ~/.kube/config 파일 내 클러스터 연결 정보를 추가해야함
 
 irsa_arn="$(terraform output irsa_arn)"
-
+alb_arn="$(terraform output alb_arn)"
 
 ###########################################################################################
 cd $DIR/eks-irsa
@@ -34,13 +34,25 @@ echo $irsa_arn > arn_tmp
 sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리   
 
 irsa_arn2="$(cat ./arn_tmp)" 
-## rm -rf arn_tmp
+rm -rf arn_tmp
 sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 
-# kubectl create namespace mineopsname
-# lkubectl apply -k .
+kubectl create namespace mineopsname
+kubectl apply -k .
 
 
+cd $DIR/eks-aws-load-balancer-controller/aws-load-balancer-controller
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.5.3/cert-manager.yaml
+
+echo $alb_arn > arn_tmp
+sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리   
+
+alb_arn2="$(cat ./arn_tmp)" 
+rm -rf arn_tmp
+sed -i "s/input/$alb_arn2/1" ./rbac.yaml
+
+
+echo "콘솔상에서 값 input"
 
 # aa="$(terraform output vpc1)"
 # echo $aa >vpc1

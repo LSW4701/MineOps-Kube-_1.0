@@ -31,3 +31,6 @@ output "irsa_arn" {
   value = module.irsa__irsa_test.arn
 }
 
+output "alb_arn" {
+  value = module.irsa__aws_load_balancer_controller.arn
+}
