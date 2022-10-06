@@ -38,7 +38,7 @@ sed -i "s/vpc/vpc\\\/1" ./vpc1   # 1회만 변경
 
 cc="$(cat ./vpc1)"  # 
 
-sed -i "s/arn/$cc/1" ./rbac.yaml   # 복붙으로 들어간 arn이 또 복사되므로 1
+sed -i "s/arn/$cc/1" ./rbac.yaml   # 복붙으로 들어간 arn이 또 복사되므로 g가 아닌 1 옵션 
 
 aa="$(terraform output vpc1)"
 echo $aa > vpc1
