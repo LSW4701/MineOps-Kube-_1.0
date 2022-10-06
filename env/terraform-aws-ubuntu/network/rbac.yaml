@@ -4,4 +4,4 @@ metadata:
   name: irsa-test
   annotations:
     eks.amazonaws.com/role-arn: "arn"  # annotation을 통해 role arn 작성 
-## # #                            "arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049"
+## # #    #                        "arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049"
