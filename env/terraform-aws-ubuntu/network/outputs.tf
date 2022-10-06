@@ -7,5 +7,5 @@ output "subnet_groups" {
 }
 
 output "vpc1" {
-  value = module.vpc.name
+  value = module.vpc.cidr_block
 }
