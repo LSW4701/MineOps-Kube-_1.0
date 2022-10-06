@@ -100,9 +100,10 @@ module "subnet_group" {
       tags = subnets.tags
     }
   }
+  
 
-  # tags = local.common_tags
- # tags = subnets.tags
+  tags = local.common_tags
+  
 }
 
 
