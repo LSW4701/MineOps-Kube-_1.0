@@ -97,12 +97,12 @@ module "subnet_group" {
     "${module.vpc.name}-${each.key}-${format("%03d", idx + 1)}/${regex("az[0-9]", subnet.az_id)}" => {
       cidr_block           = subnet.cidr
       availability_zone_id = subnet.az_id
-      tags = subnet.tags
+      
     }
   }
 
   # tags = local.common_tags
-
+  tags = subnet.tags
 }
 
 
