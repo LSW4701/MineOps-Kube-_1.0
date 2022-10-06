@@ -20,7 +20,7 @@ cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
 LSW="$(terraform output vpc1)"
-LSW2=sed -e '/:$/N;s/\n/ /' $LSW
+LSW2="$(sed -e '/:$/N;s/\n/ /' $LSW)"
 
 echo $LSW2
 
