@@ -31,12 +31,13 @@ irsa_arn="$(terraform output irsa_arn)"
 ###########################################################################################
 cd $DIR/eks-irsa
 echo $irsa_arn > arn_tmp
-sed -i "s/vpc/vpc\\\/1" ./arn_tmp   # vpc/ -> vpc\/  sed 인식을 위해 \치환  
+sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리   
 
 irsa_arn2= "$(cat ./arn_tmp)" 
 sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 
-
+# kubectl create namespace mineopsname
+# lkubectl apply -k .
 
 
 
