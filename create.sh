@@ -19,51 +19,55 @@ echo $DIR
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
-aa="$(terraform output vpc1)"
-echo $aa >vpc1
-#
-echo $aa >vpc1
-sed -i "s/\///g" ./vpc1   #  이거는 / 지우기
-sed -i "s/vpc\///g" ./vpc1   #  vpc 지우기,  (모든 vpc )
-sed -i "s/vpc\///1" ./vpc1   #  vpc 맨 처음 지우기,  (모든 vpc )  
+cd $DIR/env/terraform-eks/3-irsa ; terraform init
+terraform apply -auto-approve
 
-sed -i "s/\//\\/g" ./vpc1  #  이거는 암됨
-sed -i "s/\//\\\\//g" ./vpc1   #  이거는 /를 \/ 로 바꾸기   \ -> \\\   / -> \/    인데  \\\\ 4개인식이라 안된다
-
-sed -i "s/vpc/vpc\\\/1" ./vpc1   #  /  \/ 
-
-
-sed -i "s/vpc/vpc\\\/1" ./vpc1   # 1회만 변경 
-
-
-cc="$(cat ./vpc1)"  # 
-
-sed -i "s/input/$cc/1" ./rbac.yaml   # 복붙으로 들어간 arn이 또 복사되므로 g가 아닌 1 옵션 
-
-aa="$(terraform output vpc1)"
-echo $aa > vpc1
-sed -i "s/vpc\//vpc\\\/1" ./vpc1 
-cc="$(cat vpc1)" 
-
-
-LSW2="$(sed -e '/ \//\' "$(terraform output vpc1)" )"
-LSW2="$(sed -e '/:$/N;s/\n/ /' $LSW)"
-
-sed -i ''
-echo $LSW2
-
-sed -i "s/arn/$LSW2/g" ./rbac.yaml
-sed -i "s/arn/ddd/g" ./rbac.yaml
-sed -i "s/ars::/arn/g" ./rbac.yaml
-sed -i "s/arn/arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049/g" ./rbac.yaml
-sed -i "s/arn/arn:aws:ec2:ap-northeast-2:959714228357:vpc\/vpc-00ea7001e778b6049/g" ./rbac.yaml
-
-# cd $DIR/env/terraform-eks/3-irsa ; terraform init
-# terraform apply -auto-approve
-
-
-# 
-
-# aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias apne2-mineops
+aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias apne2-mineops
 # EKS연결을 위해선 ~/.kube/config 파일 내 클러스터 연결 정보를 추가해야함
+
+irsa_arn="$(terraform output irsa_arn)"
+
+
+###########################################################################################
+cd $DIR/eks-irsa
+echo $irsa_arn > arm_tmp
+sed -i "s/vpc/vpc\\\/1" ./arm_tmp   # vpc/ -> vpc\/  sed 인식을 위해 \치환  
+
+irsa_arn2 ="$(cat arm_tmp)" 
+sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
+
+
+
+
+
+# aa="$(terraform output vpc1)"
+# echo $aa >vpc1
+# #
+
+# sed -i "s/\///g" ./vpc1   #  이거는 / 지우기
+# sed -i "s/vpc\///g" ./vpc1   #  vpc 지우기,  (모든 vpc )
+# sed -i "s/vpc\///1" ./vpc1   #  vpc 맨 처음 지우기,  (모든 vpc )  
+
+# sed -i "s/\//\\/g" ./vpc1  #  이거는 암됨
+# sed -i "s/\//\\\\//g" ./vpc1   #  이거는 /를 \/ 로 바꾸기   \ -> \\\   / -> \/    인데  \\\\ 4개인식이라 안된다
+
+# sed -i "s/vpc/vpc\\\/1" ./vpc1   # 1회만 변경 
+
+
+# cc="$(cat ./vpc1)"  # 
+
+# sed -i "s/input/$cc/1" ./rbac.yaml   # 복붙으로 들어간 arn이 또 복사되므로 g가 아닌 1 옵션 
+
+
+
+# sed -i ''
+# echo $LSW2
+
+# sed -i "s/arn/$LSW2/g" ./rbac.yaml
+# sed -i "s/arn/ddd/g" ./rbac.yaml
+# sed -i "s/ars::/arn/g" ./rbac.yaml
+# sed -i "s/arn/arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049/g" ./rbac.yaml
+# sed -i "s/arn/arn:aws:ec2:ap-northeast-2:959714228357:vpc\/vpc-00ea7001e778b6049/g" ./rbac.yaml
+
+
 

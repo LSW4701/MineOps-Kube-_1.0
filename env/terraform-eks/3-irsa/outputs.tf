@@ -26,3 +26,8 @@ output "irsa" {
     "kubernetes-external-secrets"  = module.irsa__kubernetes_external_secrets
   }
 }
+
+output "irsa_arn" {
+  value = module.irsa__irsa_test.arn
+}
+
