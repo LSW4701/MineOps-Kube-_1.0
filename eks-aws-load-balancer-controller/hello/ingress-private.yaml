@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ingress-private
   annotations:
-    alb.ingress.kubernetes.io/load-balancer-name: "fastcampus-aws-lb-test-private"
+    alb.ingress.kubernetes.io/load-balancer-name: "mineops-aws-lb-test-private"
     alb.ingress.kubernetes.io/scheme: "internal"
     alb.ingress.kubernetes.io/target-type: "ip"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'

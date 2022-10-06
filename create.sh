@@ -37,7 +37,7 @@ irsa_arn2="$(cat ./arn_tmp)"
 # rm -rf arn_tmp
 sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 
-kubectl create namespace mineopsname
+kubectl create namespace mineopsname  # 에러경우 고려 필요
 kubectl apply -k .
 
 

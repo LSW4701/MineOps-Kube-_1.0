@@ -13,9 +13,9 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        path: /hello
+        path: /mario
         backend:
           service:
-            name: hello
+            name: mario
             port:
               name: http
