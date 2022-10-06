@@ -39,7 +39,7 @@ module "node_group__app" {
 
   node_labels = {
     role = "app"
-    team = "fastcampus"
+    team = "mineops"
   }
   node_taints = []
 }
