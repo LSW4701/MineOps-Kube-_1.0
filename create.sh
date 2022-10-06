@@ -30,10 +30,10 @@ irsa_arn="$(terraform output irsa_arn)"
 
 ###########################################################################################
 cd $DIR/eks-irsa
-echo $irsa_arn > arm_tmp
-sed -i "s/vpc/vpc\\\/1" ./arm_tmp   # vpc/ -> vpc\/  sed 인식을 위해 \치환  
+echo $irsa_arn > arn_tmp
+sed -i "s/vpc/vpc\\\/1" ./arn_tmp   # vpc/ -> vpc\/  sed 인식을 위해 \치환  
 
-irsa_arn2= "$(cat ./arm_tmp)" 
+irsa_arn2= "$(cat ./arn_tmp)" 
 sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 
 
