@@ -5,3 +5,4 @@ metadata:
   annotations:
     eks.amazonaws.com/role-arn: input # annotation을 통해 role arn 작성 
     # eks.amazonaws.com/role-arn: "arn:aws:iam::797373241119:role/irsa-apne2-app-irsa-test"  # annotation을 통해 role arn 작성 
+#
