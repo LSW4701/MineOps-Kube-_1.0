@@ -23,86 +23,87 @@ locals {
 #   region = "ap-northeast-2"
 # }
 
-locals {
-  cluster_name = "apne2-mineops"
-}
-
-####  https://devblog.kakaostyle.com/ko/2022-03-31-3-build-eks-cluster-with-terraform/
-module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-
-  name = "apne2-mineops"
-  cidr = "10.222.0.0/16"
-
-  azs             = ["ap-northeast-2a", "ap-northeast-2c"]
-  public_subnets  = ["10.222.0.0/24", "10.222.1.0/24"]
-  private_subnets = ["10.222.2.0/24", "10.222.3.0/24"]
-
-  enable_nat_gateway     = true
-  one_nat_gateway_per_az = true
-
-  enable_dns_hostnames = true
-
-  public_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
-    "kubernetes.io/role/elb"                      = "1"
-  }
-
-  private_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"             = "1"
-  }
-}
-
-
-# ###################################################
-# # VPC
-# ###################################################
-
-# module "vpc" {
-#   source  = "tedilabs/network/aws//modules/vpc"
-#   version = "0.24.0"
-
-#   name                  = local.config.vpc.name
-#   cidr_block            = local.config.vpc.cidr
-
-#   internet_gateway_enabled = true
-
-#   dns_hostnames_enabled = true
-#   dns_support_enabled   = true
-
-#   tags = local.common_tags
-  
-  
-
+# locals {
+#   cluster_name = "apne2-mineops"
 # }
 
+# ####  https://devblog.kakaostyle.com/ko/2022-03-31-3-build-eks-cluster-with-terraform/
+# module "vpc" {
+#   source = "terraform-aws-modules/vpc/aws"
 
-###################################################
-# Subnet Groups
-###################################################
+#   name = "apne2-mineops"
+#   cidr = "10.222.0.0/16"
 
-# module "subnet_group" {
-#   source  = "tedilabs/network/aws//modules/subnet-group"
-#   version = "0.24.0"
+#   azs             = ["ap-northeast-2a", "ap-northeast-2c"]
+#   public_subnets  = ["10.222.0.0/24", "10.222.1.0/24"]
+#   private_subnets = ["10.222.2.0/24", "10.222.3.0/24"]
 
-#   for_each = local.config.subnet_groups
+#   enable_nat_gateway     = true
+#   one_nat_gateway_per_az = true
 
-#   name                    = "${module.vpc.name}-${each.key}"
-#   vpc_id                  = module.vpc.id
-#   map_public_ip_on_launch = try(each.value.map_public_ip_on_launch, false)
+#   enable_dns_hostnames = true
 
-#   subnets = {
-#     for idx, subnet in try(each.value.subnets, []) :
-#     "${module.vpc.name}-${each.key}-${format("%03d", idx + 1)}/${regex("az[0-9]", subnet.az_id)}" => {
-#       cidr_block           = subnet.cidr
-#       availability_zone_id = subnet.az_id
-#     }
+#   public_subnet_tags = {
+#     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+#     "kubernetes.io/role/elb"                      = "1"
 #   }
 
-#   tags = local.common_tags
-
+#   private_subnet_tags = {
+#     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+#     "kubernetes.io/role/internal-elb"             = "1"
+#   }
 # }
+
+
+###################################################
+# VPC
+###################################################
+
+module "vpc" {
+  source  = "tedilabs/network/aws//modules/vpc"
+  version = "0.24.0"
+
+  name                  = local.config.vpc.name
+  cidr_block            = local.config.vpc.cidr
+
+  internet_gateway_enabled = true
+
+  dns_hostnames_enabled = true
+  dns_support_enabled   = true
+
+  tags = local.common_tags
+  
+  
+
+}
+
+
+##################################################
+# Subnet Groups
+##################################################
+
+module "subnet_group" {
+  source  = "tedilabs/network/aws//modules/subnet-group"
+  version = "0.24.0"
+
+  for_each = local.config.subnet_groups
+
+  name                    = "${module.vpc.name}-${each.key}"
+  vpc_id                  = module.vpc.id
+  map_public_ip_on_launch = try(each.value.map_public_ip_on_launch, false)
+
+  subnets = {
+    for idx, subnet in try(each.value.subnets, []) :
+    "${module.vpc.name}-${each.key}-${format("%03d", idx + 1)}/${regex("az[0-9]", subnet.az_id)}" => {
+      cidr_block           = subnet.cidr
+      availability_zone_id = subnet.az_id
+      tags = tags
+    }
+  }
+
+  tags = local.common_tags
+
+}
 
 
 
