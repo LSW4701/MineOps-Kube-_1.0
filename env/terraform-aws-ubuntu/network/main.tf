@@ -1,7 +1,7 @@
 locals {
   common_tags = {
     Project = "Network"
-    Owner   = "posquit0"
+    Owner   = "posquit0"  ## 
   }
 }
 
@@ -23,6 +23,17 @@ module "vpc" {
   dns_support_enabled   = true
 
   tags = local.common_tags
+
+  public_subnet_tags = {               ## 22.10.06 test  
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                      = "1"
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"             = "1"
+  }
+
 }
 
 
