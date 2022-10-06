@@ -14,19 +14,11 @@ subnet_groups:
     subnets:
     - { cidr: "10.222.0.0/24", az_id: "${region}-az1" }
     - { cidr: "10.222.1.0/24", az_id: "${region}-az2" }
-    - tags: 
-      {
-         "Key" : "kubernetes.io/role/internal-elb",
-         "Value" : "1"
-      }   
+    
                  
   "private":    
     subnets:
     - { cidr: "10.222.2.0/24", az_id: "${region}-az1" }
     - { cidr: "10.222.3.0/24", az_id: "${region}-az2" }
-    - tags: 
-      {
-         "Key" : "kubernetes.io/role/internal-elb",
-         "Value" : "1"
-      }
+    
     
