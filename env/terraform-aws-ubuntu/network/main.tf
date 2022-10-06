@@ -104,55 +104,7 @@ module "vpc" {
 
 # }
 
-module "subnet_group__public" {
-  source  = "tedilabs/network/aws//modules/subnet-group"
-  version = "0.24.0"
 
-  name                    = "${module.vpc.name}-public"
-  vpc_id                  = module.vpc.id
-  map_public_ip_on_launch = true
-
-  subnets = {
-    "${module.vpc.name}-public-001/az1" = {
-      cidr_block           = "10.0.0.0/24"
-      availability_zone_id = "apne2-az1"
-    }
-    "${module.vpc.name}-public-002/az2" = {
-      cidr_block           = "10.0.1.0/24"
-      availability_zone_id = "apne2-az2"
-    }
-  }
-
-  tags = {
-    "kubernetes.io/role/internal-elb"                    = 1,
- #   "kubernetes.io/cluster/${local.name_prefix}-cluster" = "shared"
-  }
-}
-
-module "subnet_group__private" {
-  source  = "tedilabs/network/aws//modules/subnet-group"
-  version = "0.24.0"
-
-  name                    = "${module.vpc.name}-private"
-  vpc_id                  = module.vpc.id
-  map_public_ip_on_launch = false
-
-  subnets = {
-    "${module.vpc.name}-private-001/az1" = {
-      cidr_block           = "10.0.10.0/24"
-      availability_zone_id = "apne2-az1"
-    }
-    "${module.vpc.name}-private-002/az2" = {
-      cidr_block           = "10.0.11.0/24"
-      availability_zone_id = "apne2-az2"
-    }
-  }
-
-  tags = {
-    "kubernetes.io/role/elb"                             = 1,
-   # "kubernetes.io/cluster/${local.name_prefix}-cluster" = "shared"
-  }
-}
 
 
 
