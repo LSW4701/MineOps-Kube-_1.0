@@ -12,6 +12,6 @@ date +%Y-%m-%d
 DIR="$( cd "$( dirname "$0" )" && pwd -P )"
 echo $DIR
 
-cd $DIR/env/env/terraform-eks/3-irsa ; terraform destroy -auto-approve
+cd $DIR/env/terraform-eks/3-irsa ; terraform destroy -auto-approve
 
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform destroy -auto-approve

@@ -19,7 +19,7 @@ echo $DIR
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
-cd $DIR/env/env/terraform-eks/3-irsa ; terraform init
+cd $DIR/env/terraform-eks/3-irsa ; terraform init
 terraform apply -auto-approve
 
 aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias apne2-mineops
