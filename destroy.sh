@@ -5,12 +5,11 @@
 #: Version  : 1.0
 #: Description : : Hi
 
-echo "============================================"
-echo "create MineOps EKS create script "
+echo "============================================ "
+echo "destroy MineOps EKS create script "
 date +%Y-%m-%d
 
 DIR="$( cd "$( dirname "$0" )" && pwd -P )"
 echo $DIR
 
-cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
-terraform apply -auto-approve
+cd $DIR/env/terraform-aws-ubuntu/network ; terraform destory -auto-approve
