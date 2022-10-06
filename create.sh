@@ -24,7 +24,7 @@ LSW2="$(sed -e '/:$/N;s/\n/ /' $LSW)"
 
 echo $LSW2
 
-sed -c "s/arn/$LSW2/g" ./rbac.yaml
+sed -i "s/arn/$LSW2/g" ./rbac.yaml
 
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
