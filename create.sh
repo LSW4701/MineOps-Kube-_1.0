@@ -19,18 +19,50 @@ echo $DIR
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
-LSW="$(terraform output vpc1)"
+aa="$(terraform output vpc1)"
+echo $aa >vpc1
+#
+echo $aa >vpc1
+sed -i "s/\///g" ./vpc1   #  이거는 / 지우기
+sed -i "s/vpc\///g" ./vpc1   #  vpc 지우기,  (모든 vpc )
+sed -i "s/vpc\///1" ./vpc1   #  vpc 맨 처음 지우기,  (모든 vpc )  
+
+sed -i "s/\//\\/g" ./vpc1  #  이거는 암됨
+sed -i "s/\//\\\\//g" ./vpc1   #  이거는 /를 \/ 로 바꾸기   \ -> \\\   / -> \/    인데  \\\\ 4개인식이라 안된다
+
+sed -i "s/vpc/vpc\\\/1" ./vpc1   #  /  \/ 
+
+
+sed -i "s/vpc/vpc\\\/1" ./vpc1   # 1회만 변경 
+
+
+cc="$(cat ./vpc1)"  # 
+
+sed -i "s/arn/ddd/g" $aa
+
+aa="$(terraform output vpc1)"
+echo $aa > vpc1
+sed -i "s/vpc\//vpc\\\/1" ./vpc1 
+cc="$(cat vpc1)" 
+
+
+LSW2="$(sed -e '/ \//\' "$(terraform output vpc1)" )"
 LSW2="$(sed -e '/:$/N;s/\n/ /' $LSW)"
 
+sed -i ''
 echo $LSW2
 
 sed -i "s/arn/$LSW2/g" ./rbac.yaml
+sed -i "s/arn/ddd/g" ./rbac.yaml
+sed -i "s/ars::/arn/g" ./rbac.yaml
+sed -i "s/arn/arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049/g" ./rbac.yaml
+sed -i "s/arn/arn:aws:ec2:ap-northeast-2:959714228357:vpc\/vpc-00ea7001e778b6049/g" ./rbac.yaml
 
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
 
 
-# "arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049"
+# 
 
 # aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias apne2-mineops
 # EKS연결을 위해선 ~/.kube/config 파일 내 클러스터 연결 정보를 추가해야함
