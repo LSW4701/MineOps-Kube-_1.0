@@ -19,6 +19,8 @@ echo $DIR
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
+terraform output 
+
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
 
