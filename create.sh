@@ -11,4 +11,4 @@ date +%Y-%m-%d
 DIR="$( cd "$( dirname "$0" )" && pwd -P )"
 echo $DIR
 
-
+cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
