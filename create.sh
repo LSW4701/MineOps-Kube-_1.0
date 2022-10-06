@@ -24,7 +24,7 @@ LSW2=sed -e '/:$/N;s/\n/ /' $LSW
 
 echo $LSW2
 
-sed -i -e "arn:aws:iam::797373241119:role\/irsa-apne2-fastcampus-app-irsa-test/$LSW2/g" ./rbac.yaml
+sed -i "arn:aws:iam::797373241119:role\/irsa-apne2-fastcampus-app-irsa-test/$LSW2/g" ./rbac.yaml
 
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
