@@ -30,7 +30,7 @@ sed -i "s/arn/$LSW2/g" ./rbac.yaml
 # terraform apply -auto-approve
 
 
-
+# "arn:aws:ec2:ap-northeast-2:959714228357:vpc/vpc-00ea7001e778b6049"
 
 # aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias apne2-mineops
 # EKS연결을 위해선 ~/.kube/config 파일 내 클러스터 연결 정보를 추가해야함
