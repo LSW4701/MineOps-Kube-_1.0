@@ -22,16 +22,16 @@ spec:
           containerPort: 80
           protocol: TCP #
 ---
-apiVersion: v1
-kind: Service
-metadata:
-   name: mario
-spec:
-  selector:
-    app: mario
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 8080
-  type: NodePort
-  externalTrafficPolicy: Local
+# apiVersion: v1
+# kind: Service
+# metadata:
+#    name: mario
+# spec:
+#   selector:
+#     app: mario
+#   ports:
+#   - port: 80
+#     protocol: TCP
+#     targetPort: 8080
+#   type: NodePort
+#   externalTrafficPolicy: Local
