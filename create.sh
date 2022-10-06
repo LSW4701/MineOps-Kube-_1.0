@@ -19,12 +19,12 @@ echo $DIR
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
-LSW="$(terraform output vpc1)" |tr -d '\n'
+LSW="$(terraform output vpc1)"
+LSW2=sed -e '/:$/N;s/\n/ /' $LSW
 
+echo $LSW2
 
-echo $LSW
-
-sed -i -e "arn:aws:iam::797373241119:role\/irsa-apne2-fastcampus-app-irsa-test/$LSW/g" ./rbac.yaml
+sed -i -e "arn:aws:iam::797373241119:role\/irsa-apne2-fastcampus-app-irsa-test/$LSW2/g" ./rbac.yaml
 
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
