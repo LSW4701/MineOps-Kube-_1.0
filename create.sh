@@ -34,7 +34,7 @@ echo $irsa_arn > arn_tmp
 sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리   
 
 irsa_arn2="$(cat ./arn_tmp)" 
-rm -rf arn_tmp
+# rm -rf arn_tmp
 sed -i "s/input/$irsa_arn2/1" ./rbac.yaml
 
 kubectl create namespace mineopsname
