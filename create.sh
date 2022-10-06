@@ -19,7 +19,8 @@ echo $DIR
 cd $DIR/env/terraform-aws-ubuntu/network ; terraform init
 terraform apply -auto-approve
 
-terraform output 
+LSW="$(terraform output vpc1)"
+echo $LSW
 
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
