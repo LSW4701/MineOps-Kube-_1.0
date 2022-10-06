@@ -22,7 +22,7 @@ terraform apply -auto-approve
 LSW="$(terraform output vpc1)"
 echo $LSW
 
-sed -i "arn:aws:iam::797373241119:role\/irsa-apne2-fastcampus-app-irsa-test/$LSW/g" ./rbac.yaml
+sed -c "arn:aws:iam::797373241119:role\/irsa-apne2-fastcampus-app-irsa-test/$LSW/g" ./rbac.yaml
 
 # cd $DIR/env/terraform-eks/3-irsa ; terraform init
 # terraform apply -auto-approve
