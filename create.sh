@@ -45,7 +45,7 @@ cd $DIR/eks-aws-load-balancer-controller/aws-load-balancer-controller
 kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.5.3/cert-manager.yaml
 
 echo $alb_arn > arn_tmp
-sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리   
+sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리#   
 
 alb_arn2="$(cat ./arn_tmp)" 
 rm -rf arn_tmp

@@ -4,19 +4,7 @@ locals {
     Owner   = "posquit0"  ## 
   }
 
-  # private_tags= {
-  #   Project = "Network"
-  #   Owner   = "posquit0"
-  #   kubernetes.io/role/internal-elb = "1"
-    
-  # }
-
-  # public_tags= {
-  #   Project = "Network"
-  #   Owner   = "posquit0"
-  #   kubernetes.io/role/internal-elb = "1"
-    
-  # }
+ 
 }
 
 # provider "aws" {
