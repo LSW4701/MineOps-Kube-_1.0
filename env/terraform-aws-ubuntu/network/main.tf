@@ -48,8 +48,6 @@ module "subnet_group" {
       
     }
   }
-  
-
   tags = local.common_tags
   
 }
