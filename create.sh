@@ -97,7 +97,7 @@ echo "============================================"
 
 # sed -i ''
 # echo $LSW2
-
+#
 # sed -i "s/arn/$LSW2/g" ./rbac.yaml
 # sed -i "s/arn/ddd/g" ./rbac.yaml
 # sed -i "s/ars::/arn/g" ./rbac.yaml
