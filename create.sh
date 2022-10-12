@@ -28,7 +28,7 @@ aws eks update-kubeconfig --region ap-northeast-2 --name apne2-mineops --alias a
 irsa_arn="$(terraform output irsa_arn)"
 alb_arn="$(terraform output alb_arn)"
 
-###########################################################################################
+###########################################################################################  arn 교환 
 cd $DIR/eks-irsa
 echo $irsa_arn > arn_tmp
 sed -i "s/role/role\\\/1" ./arn_tmp   # role -> role\/    이스케이프 전처리   
@@ -52,7 +52,28 @@ rm -rf arn_tmp
 sed -i "s/input/$alb_arn2/1" ./rbac.yaml
 
 
-echo "콘솔상에서 값 input"
+###########################################################################################
+
+cd $DIR
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 > get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
+
+curl -L https://git.io/get_helm.sh | bash -s -- --version v3.8.2
+###########################################################################################
+
+
+helm repo add stable https://itzg.github.io/minecraft-server-charts/
+helm fetch stable/minecraft --untar
+mv -f values.yaml minecraft/
+kubectl create ns mine-release
+
+helm install mine-release --namespace=mine-release ./minecraft -f ./minecraft/values.yaml
+
+echo "============================================"
+echo "kubectl get all -n mine-release 명령어에서 각 pod들이 running됬는지 확인 후(약 2분소요) "
+echo "출력된 EXTERNAL-IP로 마인크래프트 클라이언트에서 접속"
+echo "============================================"
 
 # aa="$(terraform output vpc1)"
 # echo $aa >vpc1
